@@ -17,7 +17,7 @@ export class BranchService {
 
   async createBranch(createBranchDto: CreateBranchDto): Promise<Branch> {
     const { phone, location, restaurant_id } = createBranchDto;
-    const restaurant = this.restaurantModel.findById(restaurant_id); 
+    const restaurant = this.restaurantModel.findOne({ _id:restaurant_id}); 
     if(!restaurant){
       throw new BadRequestException("Restaurant not found");
     }

@@ -7,7 +7,7 @@ export type BranchDocument = HydratedDocument<Branch>;
 @Schema({ versionKey: false })
 export class Branch {
 
-    @Prop({ unique: true, required: true })
+    @Prop({ required: true })
     phone: string;
 
     @Prop()
