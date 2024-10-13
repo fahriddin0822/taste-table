@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException, R
 import { RestaurantService } from './restuarant.service';
 import { CreateRestuarantDto } from './dto/create-restuarant.dto';
 import { UpdateRestuarantDto } from './dto/update-restuarant.dto';
+import { populate } from 'dotenv';
 
 @Controller('restuarant')
 export class RestuarantController {

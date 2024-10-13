@@ -5,4 +5,3 @@ export class CreateBranchDto {
     description: string;
     restaurant_id: string;
 }
-  

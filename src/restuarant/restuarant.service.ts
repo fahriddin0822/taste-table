@@ -32,7 +32,7 @@ export class RestaurantService {
   }
 
   async findAll(): Promise<Restaurant[]> {
-    return this.restaurantModel.find().populate('branches').exec();
+    return this.restaurantModel.find().populate('branches');
   }
 
   async findOne(id: string) {

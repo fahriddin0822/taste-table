@@ -10,7 +10,15 @@ export class Restaurant {
   @Prop()
   name: string;
 
-  @Prop({ type: [{ type: Types.ObjectId, ref: "Branch" }] })
+  @Prop(
+    { 
+      type: [
+        { 
+          type: mongoose.Schema.Types.ObjectId, ref: "Branch" 
+        }
+      ] 
+    }
+  )
   branches: Branch[];
 }
 

@@ -14,7 +14,7 @@ export class AdminController {
 
   @Get()
   findAll() {
-    return this.adminService.findAll();
+    return this.adminService.findAll().populate("");
   }
 
   @Get(':id')

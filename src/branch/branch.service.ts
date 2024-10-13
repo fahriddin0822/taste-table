@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { UpdateBranchDto } from "./dto/update-branch.dto";
 import { Branch, BranchDocument } from "./models/branch.model";
 import { Model } from "mongoose";
@@ -17,16 +17,24 @@ export class BranchService {
 
   async createBranch(createBranchDto: CreateBranchDto): Promise<Branch> {
     const { phone, location, restaurant_id } = createBranchDto;
-    const branch = await this.branchModel.create({ phone, location, restaurant_id });
-    return branch;
+    const restaurant = this.restaurantModel.findById(restaurant_id); 
+    if(!restaurant){
+      throw new BadRequestException("Restaurant not found");
+    }
+
+    const newBranch = await this.branchModel.create(createBranchDto);
+    (await restaurant).branches.push(newBranch);
+    await (await restaurant).save();
+    return newBranch;
   }
 
+
   async findAll(): Promise<Branch[]> {
-    return this.branchModel.find().populate('restaurant').exec();
+    return this.branchModel.find().populate('restaurant_id').exec();
   }
 
   async findOne(id: string): Promise<Branch> {
-    const branch = await this.branchModel.findById(id).populate('restaurant').exec();
+    const branch = await this.branchModel.findById(id).populate('restaurant_id').exec();
     if (!branch) {
       throw new NotFoundException(`Branch with ID ${id} not found`);
     }
