@@ -4,7 +4,7 @@ import { UpdateTableDto } from './dto/update-table.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Tables, TablesDocument } from './models/table.model';
 import { Model } from 'mongoose';
-import { Retaurant, RetaurantDocument } from '../restuarant/models/restuarant.model';
+import { Restaurant, RetaurantDocument } from '../restuarant/models/restuarant.model';
 import * as QRCode from "qrcode";
 import * as fs from "fs";
 import * as path from "path";
@@ -12,7 +12,7 @@ import * as path from "path";
 @Injectable()
 export class TablesService {
   constructor(
-    @InjectModel(Retaurant.name) private restaurantModel: Model<RetaurantDocument>,
+    @InjectModel(Restaurant.name) private restaurantModel: Model<RetaurantDocument>,
     @InjectModel(Tables.name) private tablesModel: Model<TablesDocument>,
   ) { }
 
@@ -32,7 +32,7 @@ export class TablesService {
     await newTable.save();
 
     // Associate table with restaurant (if needed)
-    restaurant.tables.push(newTable);
+    // restaurant.tables.push(newTable);
     await restaurant.save();
 
     return { newTable };

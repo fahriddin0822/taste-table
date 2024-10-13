@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
-import { Retaurant, RetaurantDocument } from '../restuarant/models/restuarant.model';
+import { Restaurant, RetaurantDocument } from '../restuarant/models/restuarant.model';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Menu, MenuDocument } from './schemas/menu.schemas';
@@ -10,7 +10,7 @@ import { Tables } from '../tables/models/table.model';
 @Injectable()
 export class MenuService {
   constructor(
-    @InjectModel(Retaurant.name) private readonly restaurantModel: Model<RetaurantDocument>,
+    @InjectModel(Restaurant.name) private readonly restaurantModel: Model<RetaurantDocument>,
     @InjectModel(Menu.name) private readonly menuModel: Model<MenuDocument>,
     @InjectModel(Tables.name) private tableModel: Model<Tables>,
   ) {}

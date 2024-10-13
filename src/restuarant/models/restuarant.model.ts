@@ -1,29 +1,17 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument } from 'mongoose';
+import mongoose, { HydratedDocument, Types } from 'mongoose';
 import { Tables } from '../../tables/models/table.model';
+import { Branch } from '../../branch/models/branch.model';
 
-export type RetaurantDocument = HydratedDocument<Retaurant>;
+export type RetaurantDocument = HydratedDocument<Restaurant>;
 
 @Schema({ versionKey: false })
-export class Retaurant {
+export class Restaurant {
   @Prop()
   name: string;
 
-  @Prop()
-  phone_number: string;
-
-  @Prop()
-  description: string;
-
-  @Prop({
-    type:[
-      {
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Tables'
-      }
-    ]
-  })
-  tables: Tables[];
+  @Prop({ type: [{ type: Types.ObjectId, ref: "Branch" }] })
+  branches: Branch[];
 }
 
-export const RetaurantSchema = SchemaFactory.createForClass(Retaurant);
+export const RestaurantSchema = SchemaFactory.createForClass(Restaurant);

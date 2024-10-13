@@ -6,10 +6,10 @@ export type AdminDocument = HydratedDocument<Admin>;
 @Schema({ versionKey: false })
 export class Admin {
   @Prop()
-  full_name: string;
+  first_name: string;
 
-  @Prop({unique:true, required:true})
-  email: string;
+  @Prop()
+  last_name: string;
 
   @Prop({unique:true, required:true})
   phone: string;

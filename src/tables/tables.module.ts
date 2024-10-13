@@ -3,7 +3,7 @@ import { TablesService } from './tables.service';
 import { TablesController } from './tables.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Tables, TablesSchema } from './models/table.model';
-import { Retaurant, RetaurantSchema } from '../restuarant/models/restuarant.model';
+import { Restaurant, RestaurantSchema } from '../restuarant/models/restuarant.model';
 
 @Module({
   imports:[MongooseModule.forFeature([
@@ -12,8 +12,8 @@ import { Retaurant, RetaurantSchema } from '../restuarant/models/restuarant.mode
       schema: TablesSchema
     },
     {
-      name: Retaurant.name,
-      schema: RetaurantSchema
+      name: Restaurant.name,
+      schema: RestaurantSchema
     }
   ]),
   ],

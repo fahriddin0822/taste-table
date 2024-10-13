@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Param, Patch } from '@nestjs/common';
 
 import { InjectModel } from '@nestjs/mongoose';
-import { Retaurant, RetaurantDocument } from './models/restuarant.model'; // Restaurant schema import qilingan
+import { Restaurant, RetaurantDocument } from './models/restuarant.model'; // Restaurant schema import qilingan
 import { Model } from 'mongoose';
 import { CreateRestuarantDto } from './dto/create-restuarant.dto';
 import { UpdateRestuarantDto } from './dto/update-restuarant.dto';
@@ -9,17 +9,30 @@ import { UpdateRestuarantDto } from './dto/update-restuarant.dto';
 @Injectable()
 export class RestaurantService {
   constructor(
-    @InjectModel(Retaurant.name) private restaurantModel: Model<RetaurantDocument>, // Restaurant modelini inject qilingan
-  ) {}
+    @InjectModel(Restaurant.name) private restaurantModel: Model<RetaurantDocument>, // Restaurant modelini inject qilingan
+  ) { }
 
-
-  async create(createRestaurantDto: CreateRestuarantDto) {
-    const newRestaurant = new this.restaurantModel(createRestaurantDto); // Yangi restoran yaratish
-    return await newRestaurant.save(); // Yangi restoran ma'lumotlarini saqlash
+  async addBranchToRestaurant(restaurantId: string, branchId: string): Promise<Restaurant> {
+    return this.restaurantModel
+      .findByIdAndUpdate(
+        restaurantId,
+        { $push: { branches: branchId } },
+        { new: true }  // Return the updated document
+      )
+      .populate('branches')
+      .exec();
   }
 
-  async findAll() {
-    return await this.restaurantModel.find().populate('tables'); // Barcha restoranlarni qaytarish
+  
+
+
+
+  create(createRestuarantDto: CreateRestuarantDto) {
+    return this.restaurantModel.create(createRestuarantDto);
+  }
+
+  async findAll(): Promise<Restaurant[]> {
+    return this.restaurantModel.find().populate('branches').exec();
   }
 
   async findOne(id: string) {

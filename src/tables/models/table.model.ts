@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument, mongo } from 'mongoose';
-import { Retaurant } from '../../restuarant/models/restuarant.model';
+import { Restaurant } from '../../restuarant/models/restuarant.model';
 
 export type TablesDocument = HydratedDocument<Tables>;
 
@@ -19,7 +19,7 @@ export class Tables {
         type:mongoose.Schema.Types.ObjectId,
         ref:"Retaurant"
     })
-    restaurant_id: Retaurant;   
+    restaurant_id: Restaurant;   
 }
 
 export const TablesSchema = SchemaFactory.createForClass(Tables);

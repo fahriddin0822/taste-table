@@ -4,7 +4,7 @@ import { MenuController } from './menu.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule } from '@nestjs/jwt';
 import { Menu, MenuSchema } from './schemas/menu.schemas';
-import { RestuarantModule } from '../restuarant/restuarant.module';
+import { RestaurantModule } from '../restuarant/restuarant.module';
 import { Tables, TablesSchema } from '../tables/models/table.model';
 
 @Module({
@@ -20,7 +20,7 @@ import { Tables, TablesSchema } from '../tables/models/table.model';
     }
   ]),
   JwtModule.register({}),
-  RestuarantModule
+  RestaurantModule
   ],
   controllers: [MenuController],
   providers: [MenuService],

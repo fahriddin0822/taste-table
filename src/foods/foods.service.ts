@@ -23,17 +23,20 @@ export class FoodsService {
 
     // Initialize translations properly with an empty array of ObjectId if needed
     const newFood = new this.foodModel({
-      ...createFoodDto,
-      translations: createFoodDto.translations || [],  // Initialize with empty array if undefined
+      name: createFoodDto.name,  // Ensure name is passed
+      description: createFoodDto.description,  // Ensure description is passed
+      price: createFoodDto.price,
+      category: createFoodDto.category,
     });
+    
 
     const savedFood = await newFood.save();
 
     // Ensure savedFood.translations is an array of ObjectId, even if it's empty
     // savedFood.translations = savedFood.translations || [] as Types.ObjectId[];  // Properly cast as ObjectId array
 
-    category.foods.push(savedFood._id);
     await category.save();
+    category.foods.push(savedFood._id as Types.ObjectId);
 
     return savedFood as unknown as Food;  // Type-cast the result to Food to satisfy TypeScript
   }

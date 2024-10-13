@@ -1,6 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as dotenv from "dotenv"
+import { join } from 'path';
+import { NestExpressApplication } from '@nestjs/platform-express'; 
 dotenv.config()
 
 async function bootstrap() {

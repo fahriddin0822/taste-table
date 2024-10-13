@@ -7,14 +7,23 @@ import { UpdateRestuarantDto } from './dto/update-restuarant.dto';
 export class RestuarantController {
   constructor(private readonly restuarantService: RestaurantService) { }
 
+  @Patch(':restaurantId/add-branch/:branchId')
+  addBranch(
+    @Param('restaurantId') restaurantId: string,
+    @Param('branchId') branchId: string,
+  ) {
+    return this.restuarantService.addBranchToRestaurant(restaurantId, branchId);
+  }
+
   @Post()
-  create(@Body() createRestuarantDto: CreateRestuarantDto) {
-    return this.restuarantService.create(createRestuarantDto);
+  create(@Body() createRestaurantDto: CreateRestuarantDto) {
+    return this.restuarantService.create(createRestaurantDto);
   }
 
   @Get()
-  findAll() {
-    return this.restuarantService.findAll();
+  async getAllRestaurants(@Res() res) {
+    const restaurants = await this.restuarantService.findAll();
+    return res.status(200).json(restaurants);
   }
 
   @Get(':id')
